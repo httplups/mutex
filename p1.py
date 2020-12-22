@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
-        get_permission((HOST, s))
+        get_permission(HOST, s)
         # counter = send_message(HOST, counter, s)
         # counter = recv_message(HOST, counter, s)
         # counter = send_message(HOST, counter, s)
