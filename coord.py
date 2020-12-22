@@ -4,7 +4,8 @@ import _thread as thread
 import time
 import json
 import sys
-global queue_file = list()
+global queue_file
+queue_file = list()
 
 def insert_element(peer):
     global queue_file
