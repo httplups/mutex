@@ -4,6 +4,8 @@ import _thread as thread
 import time
 import json
 import sys
+import datetime
+
 global queue_file
 queue_file = list()
 
@@ -32,6 +34,10 @@ def check_queue(peer):
 def send_message(sock):
     sock.send("Allowed".encode('utf-8'))
 
+def set_log(peer):
+    f = open("log.txt", "a+")
+    f.write("Appended by {} at {}".format(peer, datetime.datetime.now))
+
 def handle_client(sock, peer):
     with sock:
         while True:
@@ -56,6 +62,7 @@ def handle_client(sock, peer):
                             break
 
             elif (option == "FREE"):
+                set_log(peer)
                 remove_element(peer)
             
         sock.close()
