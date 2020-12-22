@@ -20,12 +20,15 @@ def remove_element(peer):
 def check_queue(peer):
     if ((not queue_file) or (queue_file.index(peer) == 0)):
         # if list is empty or the peer is on top of the list 
-        return True
+        return 1
     else:
-        return False
+        return 0
 
+# response - 1 -> allowed 
+# response - 0 -> waiting for CS
+# response - 2 -> already used / free
 def recv_request(peer, sock, stop_loop):
-    response = False
+    response = 0
     try:
         data = sock.recv(1024)
         option = (data.decode())
@@ -42,6 +45,7 @@ def recv_request(peer, sock, stop_loop):
         elif (option == "FREE"):
             print('liberando da fila')
             remove_element(peer)
+            response = 2
 
     except ValueError:
         # acabou os bytes
@@ -60,15 +64,19 @@ def handle_client(sock, peer):
             if stop_loop:
                 break
         
-            if response:
+            if (response == 1):
                 # if allowed, send response
                 send_message(sock)
-            else:
+            elif (response == 0):
+                # it's not available
                 while True:
                     if(check_queue(peer)):
                         break
                 # now its available, then send response
                 send_message(sock)
+            else:
+                # now its free for others to use
+                continue
         sock.close()
     
 def main():
