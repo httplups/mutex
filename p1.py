@@ -94,6 +94,7 @@ if __name__ == '__main__':
         
         p1.join()
         p2.terminate()
+        p2.kill()
         print('p1 finishes')
         print(p2.is_alive())
         # counter = send_message(HOST, counter, s)
