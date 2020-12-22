@@ -15,7 +15,7 @@ def get_permission(server_ip, sock, sec):
         resp = (sock.recv(1024)).decode()
         print(resp)
         if (resp == "Allowed"):
-            print('I am writing on the file...')
+            print('I am doing something with the file...')
             time.sleep(sec)
             sock.send("FREE".encode('utf-8'))
             sock.close()

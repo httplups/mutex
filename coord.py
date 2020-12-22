@@ -10,16 +10,17 @@ global queue_file
 queue_file = list()
 
 def show_queue():
+    print('Queue:')
     print(queue_file)
 
 def insert_element(peer):
-    print('Inserted', peer)
+    # print('Inserted', peer)
     global queue_file
     queue_file.append(peer)
     show_queue()
 
 def remove_element(peer):
-    print('Removed', peer)
+    # print('Removed', peer)
     global queue_file
     queue_file.remove(peer)
     show_queue()
