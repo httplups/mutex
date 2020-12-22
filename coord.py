@@ -51,7 +51,8 @@ def handle_client(sock, peer):
 
             if stop_loop:
                 break
-
+            
+            time.sleep(5)
             sock.send(response.encode())
         sock.close()
     
