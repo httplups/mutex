@@ -77,16 +77,25 @@ if __name__ == '__main__':
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
+
         
-        t1 = Thread(target=mytimeout, args=(HOST, s))
-        t1.start()
-        t2 = Thread(target=get_permission, args=(HOST, s))
-        t2.start()
+
+
+        import multiprocessing 
+        p1 = multiprocessing.Process(target=mytimeout, args=(HOST, s)) 
+        p1.start() 
+        p2 = multiprocessing.Process(target=get_permission, args=(HOST, s)) 
+        p2.start() 
         
-        t1.join()
-        t2._stop()
-        print('t1 finishes')
-        print(t2.isAlive())
+        # t1 = Thread(target=mytimeout, args=(HOST, s))
+        # t1.start()
+        # t2 = Thread(target=get_permission, args=(HOST, s))
+        # t2.start()
+        
+        p1.join()
+        p2.terminate()
+        print('p1 finishes')
+        print(p2.is_alive)
         # counter = send_message(HOST, counter, s)
         # counter = recv_message(HOST, counter, s)
         # counter = send_message(HOST, counter, s)
