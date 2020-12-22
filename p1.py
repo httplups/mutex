@@ -19,6 +19,7 @@ def get_permission(server_ip, sock):
             time.sleep(5)
             sock.send("FREE".encode())
             time.sleep(10)
+            sock.close()
             break
 
 
