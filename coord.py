@@ -4,27 +4,54 @@ import _thread as thread
 import time
 import json
 import sys
+global queue_file = list()
 
-def recv_message(client_ip, sock, stop_loop):
+def insert_element(peer):
+    global queue_file
+    queue_file.append(peer)
+
+def insert_element(peer):
+    global queue_file
+    queue_file.remove(peer)
+
+def recv_request(peer, sock, stop_loop):
+
     try:
         data = sock.recv(1024)
         data = json.loads(data.decode())
-        # message = data.get("message")
-        timestamp = data.get("timestamp")
+        option = data.get("type")
+
+        if (option == "GET"):
+
+            insert_element(peer)
+
+            if ((not queue_file) || (queue_file.index(peer) == 0)):
+                # if list is empty or the peer is on top of the list 
+                response = "Allowed"
+            # else:
+            #     return "Denied"
+
+        elif (option == "FREE"):
+            print('liberando da fila')
+            remove_element(peer)
+            response = ""
+
     except ValueError:
         # acabou os bytes
         stop_loop = True
-    return stop_loop
+        response = ""
+    return [stop_loop, response]
 
-# usa counter como uma variavel global
-def handle_client(conn, peer_ip):
+def handle_client(conn, peer):
     stop_loop = False
     with conn:
-        # while not stop_loop:
-        #     stop_loop = recv_message(client_ip, conn, stop_loop)
-        #     if stop_loop:
-        #         break
-        #     send_message(client_ip, conn)
+        while not stop_loop:
+            stop_loop, response = recv_request(client_ip, conn, stop_loop)
+
+            if stop_loop:
+                break
+
+             sock.send(response)
         conn.close()
     
 def main():
