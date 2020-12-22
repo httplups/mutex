@@ -16,7 +16,7 @@ def remove_element(peer):
     queue_file.remove(peer)
 
 def recv_request(peer, sock, stop_loop):
-
+    response = ""
     try:
         data = sock.recv(1024)
         data = json.loads(data.decode())
@@ -35,12 +35,10 @@ def recv_request(peer, sock, stop_loop):
         elif (option == "FREE"):
             print('liberando da fila')
             remove_element(peer)
-            response = ""
 
     except ValueError:
         # acabou os bytes
         stop_loop = True
-        response = ""
     return [stop_loop, response]
 
 def handle_client(sock, peer):
