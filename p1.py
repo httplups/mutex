@@ -25,7 +25,7 @@ def get_permission(server_ip, sock, sec):
 if __name__ == '__main__': 
     HOST = sys.argv[1]
     PORT = 8888        # The port used by the server
-    second_with_file = sys.argv[2]
+    second_with_file = int(sys.argv[2])
 
     external_ip = urllib.request.urlopen('https://ident.me').read().decode('utf8')
     print('This IP address is: ', external_ip)
