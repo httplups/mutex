@@ -35,8 +35,9 @@ def raise_timeout(signum, frame):
 
     raise TimeoutError
 
-def mytimeout():
+def mytimeout(server_ip, sock):
     time.sleep(5)
+    print('irei chamar funcao dnv')
     return True
 
 def get_permission(server_ip, sock):
@@ -47,18 +48,18 @@ def get_permission(server_ip, sock):
     s.send(data.encode())
     print('Trying to get permission...')
 
-    thread.start_new_thread(mytimeout, ())
+    thread.start_new_thread(mytimeout, (server_ip, sock))
     print('sera q printa')
     # Add a timeout block.
     # with timeout(1, server_ip, sock):
-    #     resp = (s.recv(1024)).decode()
-    #     print(resp)
-    #     if (resp == "Denied"):
-    #         print('Denied')
-    #     if (resp == "Allowed"):
-    #         print('I am writing on the file...')
-    #         time.sleep(5)
-    #         s.send("FREE".encode())
+    resp = (s.recv(1024)).decode()
+    print(resp)
+    if (resp == "Denied"):
+        print('Denied')
+    if (resp == "Allowed"):
+        print('I am writing on the file...')
+        time.sleep(5)
+        s.send("FREE".encode())
 
 
 if __name__ == '__main__': 
