@@ -52,6 +52,7 @@ def get_permission(server_ip, sock):
     print('Trying to get permission...')
 
     t = Thread(target=mytimeout, args=(server_ip, sock))
+    t.start()
     print('sera q printa')
     # Add a timeout block.
     # with timeout(1, server_ip, sock):
