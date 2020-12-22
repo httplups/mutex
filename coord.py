@@ -38,8 +38,8 @@ def main():
         print('Waiting for requests...')
         while True:
             conn, addr = s.accept()
-            host, port = s.getpeername()
-            print(addr, host, port)
+            # host, port = s.getpeername()
+            print(addr)
             thread.start_new_thread(handle_client,(conn,addr))
         s.close()
 
