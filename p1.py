@@ -51,8 +51,7 @@ def get_permission(server_ip, sock):
     s.send(data.encode())
     print('Trying to get permission...')
 
-    t = Thread(target=mytimeout, args=(server_ip, sock))
-    t.start()
+    
     print('sera q printa')
     # Add a timeout block.
     # with timeout(1, server_ip, sock):
@@ -79,8 +78,13 @@ if __name__ == '__main__':
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
         
-        get_permission(HOST, s)
+        t1 = Thread(target=mytimeout, args=(HOST, s))
+        t1.start()
+        t2 = Thread(target=get_permission, args=(HOST, s))
+        t2.start()
         
+        t1.join()
+        print('t1 finishes')
         # counter = send_message(HOST, counter, s)
         # counter = recv_message(HOST, counter, s)
         # counter = send_message(HOST, counter, s)
