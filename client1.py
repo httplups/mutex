@@ -40,16 +40,13 @@ def recv_message(server_ip, counter, sock):
     return counter
 
 if __name__ == '__main__': 
-
-    print('HOST:', sys.argv[1])
-    HOST = '52.90.198.186'
+    HOST = sys.argv[1]
     PORT = 8888        # The port used by the server
     counter = 0
     external_ip = urllib.request.urlopen('https://ident.me').read().decode('utf8')
     print('This IP address is: ', external_ip)
     
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        counter = event(counter)
         counter = connect(counter, s, HOST, PORT)
         # counter = send_message(HOST, counter, s)
         # counter = recv_message(HOST, counter, s)
