@@ -15,8 +15,15 @@ def remove_element(peer):
     global queue_file
     queue_file.remove(peer)
 
+def check_queue(peer):
+    if ((not queue_file) or (queue_file.index(peer) == 0)):
+        # if list is empty or the peer is on top of the list 
+        return True
+    else:
+        return False
+
 def recv_request(peer, sock, stop_loop):
-    response = ""
+    response = False
     try:
         data = sock.recv(1024)
         data = json.loads(data.decode())
@@ -26,9 +33,7 @@ def recv_request(peer, sock, stop_loop):
 
             insert_element(peer)
 
-            if ((not queue_file) or (queue_file.index(peer) == 0)):
-                # if list is empty or the peer is on top of the list 
-                response = "Allowed"
+            check_queue(peer)
             # else:
             #     return "Denied"
 
@@ -41,6 +46,9 @@ def recv_request(peer, sock, stop_loop):
         stop_loop = True
     return [stop_loop, response]
 
+def send_message(sock):
+    sock.send("Allowed".encode())
+
 def handle_client(sock, peer):
     stop_loop = False
     with sock:
@@ -49,9 +57,16 @@ def handle_client(sock, peer):
 
             if stop_loop:
                 break
-            
-            # time.sleep(5)
-            sock.send(response.encode())
+        
+            if response:
+                # if allowed, send response
+                send_message(sock)
+            else:
+                while True:
+                    if(check_queue(peer)):
+                        break
+                # now its available, so send response
+                send_message(sock)
         sock.close()
     
 def main():
