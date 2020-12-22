@@ -21,13 +21,11 @@ def timeout(time, server_ip, sock):
     try:
         yield
     except TimeoutError:
-        print('aqui')
         get_permission(server_ip, sock)
-        pass
-    finally:
-        # Unregister the signal so it won't be triggered
-        # if the timeout is not reached.
-        signal.signal(signal.SIGALRM, signal.SIG_IGN)
+    # finally:
+    #     # Unregister the signal so it won't be triggered
+    #     # if the timeout is not reached.
+    #     signal.signal(signal.SIGALRM, signal.SIG_IGN)
 
 
 def raise_timeout(signum, frame):
