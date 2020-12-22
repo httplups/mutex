@@ -7,15 +7,20 @@ import sys
 global queue_file
 queue_file = list()
 
+def show_queue():
+    print(queue_file)
+
 def insert_element(peer):
     print('Inserted', peer)
     global queue_file
     queue_file.append(peer)
+    show_queue()
 
 def remove_element(peer):
     print('Removed', peer)
     global queue_file
     queue_file.remove(peer)
+    show_queue()
 
 def check_queue(peer):
     if ((not queue_file) or (queue_file.index(peer) == 0)):
