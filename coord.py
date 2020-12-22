@@ -43,20 +43,22 @@ def handle_client(sock, peer):
             option = (data.decode())
 
             if (option == "GET"):
+                # its available
                 insert_element(peer)
                 if(check_queue(peer)):
                     send_message(sock)
+                else:
+                    # it's not available
+                    while True:
+                        print('checando sempre')
+                        if(check_queue(peer)):
+                            # now its available, then send 'allowed'
+                            send_message(sock)
+                            break
 
             elif (option == "FREE"):
                 remove_element(peer)
-            else:
-                # it's not available
-                while True:
-                    print('checando sempre')
-                    if(check_queue(peer)):
-                        # now its available, then send 'allowed'
-                        send_message(sock)
-                        break
+            
         sock.close()
     
 def main():
