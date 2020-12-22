@@ -29,6 +29,7 @@ def recv_request(peer, sock, stop_loop):
     try:
         data = sock.recv(1024)
         option = (data.decode())
+        print(option)
 
         if (option == "GET"):
 
