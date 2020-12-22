@@ -45,7 +45,7 @@ def get_permission(server_ip, sock):
 
     # Add a timeout block.
     with timeout(5):
-        resp = s.recv(1024)
+        resp = (s.recv(1024)).decode()
         print(resp)
         if (resp == "Denied"):
             print('Denied')
