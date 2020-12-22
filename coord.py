@@ -11,7 +11,7 @@ def insert_element(peer):
     global queue_file
     queue_file.append(peer)
 
-def insert_element(peer):
+def remove_element(peer):
     global queue_file
     queue_file.remove(peer)
 
@@ -43,17 +43,17 @@ def recv_request(peer, sock, stop_loop):
         response = ""
     return [stop_loop, response]
 
-def handle_client(conn, peer):
+def handle_client(sock, peer):
     stop_loop = False
-    with conn:
+    with sock:
         while not stop_loop:
-            stop_loop, response = recv_request(client_ip, conn, stop_loop)
+            stop_loop, response = recv_request(peer, sock, stop_loop)
 
             if stop_loop:
                 break
 
             sock.send(response)
-        conn.close()
+        sock.close()
     
 def main():
     HOST = '0.0.0.0'  # Standard loopback interface address (localhost)
