@@ -84,7 +84,9 @@ if __name__ == '__main__':
         t2.start()
         
         t1.join()
+        t2._stop()
         print('t1 finishes')
+        print(t2.isAlive())
         # counter = send_message(HOST, counter, s)
         # counter = recv_message(HOST, counter, s)
         # counter = send_message(HOST, counter, s)
