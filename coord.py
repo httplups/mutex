@@ -8,10 +8,12 @@ global queue_file
 queue_file = list()
 
 def insert_element(peer):
+    print('Inserted', peer)
     global queue_file
     queue_file.append(peer)
 
 def remove_element(peer):
+    print('Removed', peer)
     global queue_file
     queue_file.remove(peer)
 
