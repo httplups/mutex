@@ -26,7 +26,7 @@ def recv_request(peer, sock, stop_loop):
 
             insert_element(peer)
 
-            if ((not queue_file) || (queue_file.index(peer) == 0)):
+            if ((not queue_file) or (queue_file.index(peer) == 0)):
                 # if list is empty or the peer is on top of the list 
                 response = "Allowed"
             # else:
