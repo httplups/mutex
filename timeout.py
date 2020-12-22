@@ -26,7 +26,7 @@ def raise_timeout(signum, frame):
 
 def my_func():
     # Add a timeout block.
-    with timeout(1):
+    with timeout(5):
         print('entering block')
         import time
         time.sleep(10)
