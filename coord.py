@@ -67,6 +67,7 @@ def handle_client(sock, peer):
             if (response == 1):
                 # if allowed, send response
                 send_message(sock)
+                print(stop_loop)
             # elif (response == 0):
             #     # it's not available
             #     while True:
