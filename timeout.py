@@ -20,6 +20,7 @@ def timeout(time):
 
 
 def raise_timeout(signum, frame):
+    print('End of time')
     raise TimeoutError
 
 
