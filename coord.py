@@ -36,7 +36,7 @@ def send_message(sock):
 
 def set_log(peer):
     f = open("log.txt", "a+")
-    f.write("Appended by {} at {}".format(peer, datetime.datetime.now()))
+    f.write("Appended by {} at {}\n\n".format(peer, datetime.datetime.now()))
 
 def handle_client(sock, peer):
     with sock:
