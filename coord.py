@@ -49,6 +49,7 @@ def recv_request(peer, sock, stop_loop):
 
     except ValueError:
         # acabou os bytes
+        print('exception')
         stop_loop = True
     return [stop_loop, response]
 
