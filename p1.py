@@ -12,7 +12,7 @@ global end_time
 end_time = False
 
 @contextmanager
-def timeout(time):
+def timeout(time, server_ip, sock):
     # Register a function to raise a TimeoutError on the signal.
     signal.signal(signal.SIGALRM, raise_timeout)
     # Schedule the signal to be sent after ``time``.
@@ -22,6 +22,7 @@ def timeout(time):
         yield
     except TimeoutError:
         print('aqui')
+        get_permission(server_ip, sock)
         pass
     finally:
         # Unregister the signal so it won't be triggered
@@ -30,8 +31,6 @@ def timeout(time):
 
 
 def raise_timeout(signum, frame):
-    print('End of time')
-
     global end_time
     end_time = True
 
@@ -45,7 +44,7 @@ def get_permission(server_ip, sock):
     print('Trying to get permission...')
 
     # Add a timeout block.
-    with timeout(1):
+    with timeout(1, server_ip, sock):
         resp = (s.recv(1024)).decode()
         print(resp)
         if (resp == "Denied"):
