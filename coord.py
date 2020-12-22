@@ -52,7 +52,7 @@ def handle_client(sock, peer):
             if stop_loop:
                 break
 
-            sock.send(response)
+            sock.send(response.encode())
         sock.close()
     
 def main():
