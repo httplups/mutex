@@ -17,7 +17,7 @@ def get_permission(server_ip, sock):
         if (resp == "Allowed"):
             print('I am writing on the file...')
             time.sleep(5)
-            sock.send("FREE".encode())
+            sock.send("FREE".encode('utf-8'))
             time.sleep(10)
             sock.close()
             break
@@ -33,6 +33,7 @@ if __name__ == '__main__':
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
         get_permission(HOST, s)
+        print('Terminou')
         # counter = send_message(HOST, counter, s)
         # counter = recv_message(HOST, counter, s)
         # counter = send_message(HOST, counter, s)
