@@ -21,6 +21,7 @@ def timeout(time):
     try:
         yield
     except TimeoutError:
+        print('aqui')
         pass
     finally:
         # Unregister the signal so it won't be triggered
@@ -64,6 +65,7 @@ if __name__ == '__main__':
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
+        
         get_permission(HOST, s)
         
         # counter = send_message(HOST, counter, s)
