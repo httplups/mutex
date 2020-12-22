@@ -48,6 +48,7 @@ def recv_request(peer, sock, stop_loop):
     return [stop_loop, response]
 
 def send_message(sock):
+    print('oi')
     sock.send("Allowed".encode())
 
 def handle_client(sock, peer):
