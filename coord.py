@@ -52,6 +52,7 @@ def handle_client(sock, peer):
             else:
                 # it's not available
                 while True:
+                    print('checando sempre')
                     if(check_queue(peer)):
                         # now its available, then send 'allowed'
                         send_message(sock)
