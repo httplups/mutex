@@ -30,3 +30,6 @@ def my_func():
         import time
         time.sleep(10)
         print('This should never get printed because the line before timed out')
+
+if __name__ == '__main__': 
+    my_func()
