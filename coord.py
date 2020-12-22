@@ -53,7 +53,7 @@ def recv_request(peer, sock, stop_loop):
     return [stop_loop, response]
 
 def send_message(sock):
-    sock.send("Allowed".encode())
+    sock.send("Allowed".encode('utf-8'))
 
 def handle_client(sock, peer):
     stop_loop = False
