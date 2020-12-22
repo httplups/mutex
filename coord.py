@@ -27,58 +27,41 @@ def check_queue(peer):
 # response - 1 -> allowed 
 # response - 0 -> waiting for CS
 # response - 2 -> already used / free
-def recv_request(peer, sock, stop_loop):
+def recv_request(peer, sock):
     response = 0
-    try:
+    while True:
         data = sock.recv(1024)
+        if not data:
+            break
+       
         option = (data.decode())
         print(option)
 
         if (option == "GET"):
 
             insert_element(peer)
-
-            response = check_queue(peer)
-            # else:
-            #     return "Denied"
+            if(check_queue(peer)):
+                send_message(sock)
 
         elif (option == "FREE"):
             print('liberando da fila')
             remove_element(peer)
-            response = 2
-
-    except ValueError:
-        # acabou os bytes
-        print('exception')
-        stop_loop = True
-    return [stop_loop, response]
-
+            # poderia remover a conexao ou n fazer nada
+        else:
+            # it's not available
+            while True:
+                if(check_queue(peer)):
+                    # now its available, then send response
+                    send_message(sock)
+                    break
+                
+                
 def send_message(sock):
     sock.send("Allowed".encode('utf-8'))
 
 def handle_client(sock, peer):
-    stop_loop = False
     with sock:
-        while not stop_loop:
-            stop_loop, response = recv_request(peer, sock, stop_loop)
-
-            if stop_loop:
-                break
-        
-            if (response == 1):
-                # if allowed, send response
-                send_message(sock)
-                print(stop_loop)
-            # elif (response == 0):
-            #     # it's not available
-            #     while True:
-            #         if(check_queue(peer)):
-            #             break
-            #     # now its available, then send response
-            #     send_message(sock)
-            # else:
-            #     # now its free for others to use
-            #     continue
+        recv_request(peer, sock)
         sock.close()
     
 def main():
