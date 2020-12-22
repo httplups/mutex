@@ -8,12 +8,11 @@ import time
 
 def get_permission(server_ip, sock):
 
-    data = json.dumps({"type":"GET"})
-    s.send(data.encode())
+    sock.send("GET".encode())
     print('Trying to get permission...')
 
     while (True):
-        resp = (s.recv(1024)).decode()
+        resp = (sock.recv(1024)).decode()
         print(resp)
         if (resp == "Allowed"):
             print('I am writing on the file...')
