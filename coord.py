@@ -37,9 +37,10 @@ def main():
         print('Coordinator started!')
         print('Waiting for requests...')
         while True:
-            conn, addr = s.accept()
+            conn, ip, port = s.accept()
             # host, port = s.getpeername()
-            print(addr)
+            print(ip)
+            print(port)
             thread.start_new_thread(handle_client,(conn,addr))
         s.close()
 
