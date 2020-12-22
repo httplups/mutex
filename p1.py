@@ -8,6 +8,7 @@ import signal
 from contextlib import contextmanager
 import time
 import _thread as thread
+from threading import Thread
 
 global end_time
 end_time = False
@@ -42,24 +43,29 @@ def mytimeout(server_ip, sock):
 
 def get_permission(server_ip, sock):
 
+    timeout = True
+
     data = json.dumps({"type":"GET"})
 
     
     s.send(data.encode())
     print('Trying to get permission...')
 
-    thread.start_new_thread(mytimeout, (server_ip, sock))
+    t = Thread(target=mytimeout, args=(server_ip, sock))
     print('sera q printa')
     # Add a timeout block.
     # with timeout(1, server_ip, sock):
-    resp = (s.recv(1024)).decode()
-    print(resp)
-    if (resp == "Denied"):
-        print('Denied')
-    if (resp == "Allowed"):
-        print('I am writing on the file...')
-        time.sleep(5)
-        s.send("FREE".encode())
+    while (timeout):
+        resp = (s.recv(1024)).decode()
+        print(resp)
+        if (resp == "Denied"):
+            print('Denied')
+            break
+        if (resp == "Allowed"):
+            print('I am writing on the file...')
+            time.sleep(5)
+            s.send("FREE".encode())
+            break
 
 
 if __name__ == '__main__': 
