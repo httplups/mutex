@@ -67,16 +67,16 @@ def handle_client(sock, peer):
             if (response == 1):
                 # if allowed, send response
                 send_message(sock)
-            elif (response == 0):
-                # it's not available
-                while True:
-                    if(check_queue(peer)):
-                        break
-                # now its available, then send response
-                send_message(sock)
-            else:
-                # now its free for others to use
-                continue
+            # elif (response == 0):
+            #     # it's not available
+            #     while True:
+            #         if(check_queue(peer)):
+            #             break
+            #     # now its available, then send response
+            #     send_message(sock)
+            # else:
+            #     # now its free for others to use
+            #     continue
         sock.close()
     
 def main():
