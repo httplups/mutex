@@ -3,6 +3,7 @@
 import socket
 import urllib.request
 import json
+import sys
 
 def local_time(counter):
     return ' (LAMPORT_TIME={})'.format(counter)
@@ -40,6 +41,7 @@ def recv_message(server_ip, counter, sock):
 
 if __name__ == '__main__': 
 
+    print('HOST:', sys.argv[1])
     HOST = '52.90.198.186'
     PORT = 8888        # The port used by the server
     counter = 0
