@@ -35,7 +35,7 @@ def recv_request(peer, sock, stop_loop):
 
             insert_element(peer)
 
-            check_queue(peer)
+            response = check_queue(peer)
             # else:
             #     return "Denied"
 
@@ -49,7 +49,6 @@ def recv_request(peer, sock, stop_loop):
     return [stop_loop, response]
 
 def send_message(sock):
-    print('oi')
     sock.send("Allowed".encode())
 
 def handle_client(sock, peer):
@@ -68,7 +67,7 @@ def handle_client(sock, peer):
                 while True:
                     if(check_queue(peer)):
                         break
-                # now its available, so send response
+                # now its available, then send response
                 send_message(sock)
         sock.close()
     
