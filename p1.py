@@ -44,13 +44,15 @@ def get_permission(server_ip, sock):
     print('Trying to get permission...')
 
     # Add a timeout block.
-    with timeout(5):
+    with timeout(0.001):
         resp = (s.recv(1024)).decode()
         print(resp)
         if (resp == "Denied"):
             print('Denied')
         if (resp == "Allowed"):
             print('I am writing on the file...')
+            time.sleep(5)
+            s.send("FREE".encode())
 
 
 if __name__ == '__main__': 
