@@ -102,8 +102,6 @@ if __name__ == '__main__':
     counter = 0
     external_ip = urllib.request.urlopen('https://ident.me').read().decode('utf8')
     print('This IP address is: ', external_ip)
-    
-    signal.signal(signal.SIGALRM, handler)
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
