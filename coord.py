@@ -22,46 +22,35 @@ def check_queue(peer):
         # if list is empty or the peer is on top of the list 
         return 1
     else:
-        return 0
-
-# response - 1 -> allowed 
-# response - 0 -> waiting for CS
-# response - 2 -> already used / free
-def recv_request(peer, sock):
-    response = 0
-    while True:
-        data = sock.recv(1024)
-        if not data:
-            break
-       
-        option = (data.decode())
-        print(option)
-
-        if (option == "GET"):
-
-            insert_element(peer)
-            if(check_queue(peer)):
-                send_message(sock)
-
-        elif (option == "FREE"):
-            print('liberando da fila')
-            remove_element(peer)
-            # poderia remover a conexao ou n fazer nada
-        else:
-            # it's not available
-            while True:
-                if(check_queue(peer)):
-                    # now its available, then send response
-                    send_message(sock)
-                    break
-                
+        return 0   
                 
 def send_message(sock):
     sock.send("Allowed".encode('utf-8'))
 
 def handle_client(sock, peer):
     with sock:
-        recv_request(peer, sock)
+        while True:
+            # read request
+            data = sock.recv(1024)
+            if not data:
+                break
+       
+            option = (data.decode())
+
+            if (option == "GET"):
+                insert_element(peer)
+                if(check_queue(peer)):
+                    send_message(sock)
+
+            elif (option == "FREE"):
+                remove_element(peer)
+            else:
+                # it's not available
+                while True:
+                    if(check_queue(peer)):
+                        # now its available, then send 'allowed'
+                        send_message(sock)
+                        break
         sock.close()
     
 def main():
