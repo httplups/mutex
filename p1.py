@@ -7,6 +7,7 @@ import sys
 import signal
 from contextlib import contextmanager
 import time
+import _thread as thread
 
 global end_time
 end_time = False
