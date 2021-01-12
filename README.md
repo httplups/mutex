@@ -1,6 +1,6 @@
 # Relógio de Lamport
 
-Implementação que simula um algoritmo centralizado de exclusão mútua, na comunicação entre 1 coordenador e 2 processos. 
+Implementação que simula um algoritmo centralizado de exclusão mútua, na comunicação orientada a mensagensentre 1 coordenador e 2 processos através de Sockets TCP. 
 Note que nesta implementação, quando um processo pede permissão a um arquivo para o coordenador, este não especifica o nome do arquivo.
 Isso foi feito assumindo que todos os processos querem acessar o mesmo arquivo, da qual o coordenador cuida, para simplificação da implementação. 
 No entanto, o conceito de troca de mensagens para obter permissão é o mesmo. Note ainda que no caso ideal, deveria ter uma fila associada a cada arquivo. 
