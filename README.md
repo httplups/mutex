@@ -41,6 +41,10 @@ No teste do vídeo, rodamos os processos como:
 ```bash
    python3 p1.py 54.145.129.76 5
 ```   
+4. Verificar arquivo de log
+```bash
+   cat log.txt
+```
 
 Obtivemos a seguinte saída:
 
@@ -75,4 +79,10 @@ Cliente 2:
     Allowed
     I am doing something with the file...
     Terminou
+```
+Após a execução de todos os processos, verificamos o arquivo de log:
+```bash
+      Appended by ('3.83.25.185', 35798) at 2021-01-05 21:24:12.070604
+
+      Appended by ('18.212.33.91', 59324) at 2021-01-05 21:24:17.077331
 ```
